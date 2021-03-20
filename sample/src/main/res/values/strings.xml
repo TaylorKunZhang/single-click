@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">SingleClickSample</string>
+
+    <string name="btn1">btn1</string>
+    <string name="btn2">btn2</string>
+    <string name="btn3">btn3</string>
+    <string name="btn4">btn4</string>
+
+    <string-array name="list">
+        <item>Kotlin</item>
+        <item>Android</item>
+    </string-array>
+</resources>

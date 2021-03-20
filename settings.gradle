@@ -1,0 +1,3 @@
+rootProject.name = "single-click"
+include ':single-click'
+include ':sample'

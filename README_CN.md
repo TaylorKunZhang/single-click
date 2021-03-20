@@ -1,14 +1,14 @@
-English | [简体中文](README_CN.md)
+[English](README.md) | 简体中文
 
 # SingleClick
 
-A library that gracefully handles repeated clicks in Android.
+在 Android 中优雅处理重复点击的库。
 
 [![Download](https://api.bintray.com/packages/taylorzhang/maven/single-click/images/download.svg?style=flat)](https://bintray.com/taylorzhang/maven/single-click/)
 [![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14)
 [![License](https://img.shields.io/badge/License-Apache--2.0-brightgreen.svg?style=flat)](LICENSE)
 
-## Download
+## 下载
 
 ```groovy
 dependencies {
@@ -16,23 +16,23 @@ dependencies {
 }
 ```
 
-## Usage
+## 使用
 
 ### View
 
 ```kotlin
 mBinding.btn1.onSingleClick {
-    // handle single click
+    // 处理单次点击
 }
 
 mBinding.btn2.onSingleClick(interval = 2000, isShareSingleClick = false) {
-    // handle single click
+    // 处理单次点击
 }
 ```
 
-### DataBinding
+### 数据绑定
 
-layout:
+布局:
 
 ```xml
 <androidx.appcompat.widget.AppCompatButton
@@ -44,18 +44,18 @@ layout:
     app:singleClickInterval="@{2000}" />
 ```
 
-kotlin:
+代码:
 
-```kotlin
+```
 class YourViewModel : ViewModel() {
 
     fun handleClick() {
-        // handle single click
+        // 处理单次点击
     }
 }
 ```
 
-### Rich Text
+### 富文本
 
 ```kotlin
 mBinding.tvText.movementMethod = LinkMovementMethod.getInstance()
@@ -63,7 +63,7 @@ mBinding.tvText.highlightColor = Color.TRANSPARENT
 mBinding.tvText.text = buildSpannedString {
     append("normalText")
     onSingleClick({
-        // handle single click
+        // 处理单次点击
     }) {
         color(Color.GREEN) { append("clickText") }
     }
@@ -72,29 +72,29 @@ mBinding.tvText.text = buildSpannedString {
 
 ### RecyclerView
 
-Adapter use [BaseRecyclerViewAdapterHelper](https://github.com/CymChad/BaseRecyclerViewAdapterHelper), the code is similar if you use other adapters.
+适配器使用 [BaseRecyclerViewAdapterHelper](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)，如果你使用其他适配器代码也是类似的。
 
-Item Click:
+Item 点击:
 
 ```kotlin
 adapter.setOnItemClickListener { _, view, _ ->
     view.determineTriggerSingleClick {
-        // handle single click
+        // 处理单次点击
     }
 }
 ```
 
-Item Child Click:
+Item Child 点击:
 
 ```kotlin
 adapter.addChildClickViewIds(R.id.btn1, R.id.btn2)
 adapter.setOnItemChildClickListener { _, view, _ ->
     when (view.id) {
         R.id.btn1 -> {
-            // handle normal click
+            // 处理普通点击
         }
         R.id.btn2 -> view.determineTriggerSingleClick {
-            // handle single click
+            // 处理单次点击
         }
     }
 }
