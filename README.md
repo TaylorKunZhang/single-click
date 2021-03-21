@@ -12,7 +12,7 @@ A library that gracefully handles repeated clicks in Android.
 
 ```groovy
 dependencies {
-    implementation 'cc.taylorzhang:single-click:0.1.0'
+    implementation 'cc.taylorzhang:single-click:1.0.0'
 }
 ```
 
