@@ -34,14 +34,36 @@ inline fun SpannableStringBuilder.onSingleClick(
     noinline updateDrawStateAction: ((TextPaint) -> Unit)? = null,
     builderAction: SpannableStringBuilder .() -> Unit
 ): SpannableStringBuilder = inSpans(
-    object : ClickableSpan() {
-        override fun onClick(widget: View) {
-            widget.determineTriggerSingleClick(interval, isShareSingleClick, listener)
-        }
-
-        override fun updateDrawState(ds: TextPaint) {
-            updateDrawStateAction?.invoke(ds)
-        }
-    },
+    SingleClickableSpan(
+        listener, interval, isShareSingleClick, updateDrawStateAction
+    ),
     builderAction = builderAction
 )
+
+/**
+ * Single clickable span.
+ */
+class SingleClickableSpan(
+    private val listener: View.OnClickListener,
+    private val interval: Int = SingleClickUtil.singleClickInterval,
+    private val isShareSingleClick: Boolean = true,
+    private val updateDrawStateAction: ((TextPaint) -> Unit)? = null,
+) : ClickableSpan() {
+
+    private var mFakeView: View? = null
+
+    override fun onClick(widget: View) {
+        if (isShareSingleClick) {
+            widget
+        } else {
+            if (mFakeView == null) {
+                mFakeView = View(widget.context)
+            }
+            mFakeView!!
+        }.determineTriggerSingleClick(interval, isShareSingleClick, listener)
+    }
+
+    override fun updateDrawState(ds: TextPaint) {
+        updateDrawStateAction?.invoke(ds)
+    }
+}
