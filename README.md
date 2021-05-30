@@ -4,13 +4,17 @@ English | [简体中文](README_CN.md)
 
 A library that gracefully handles repeated clicks in Android.
 
-[![Download](https://api.bintray.com/packages/taylorzhang/maven/single-click/images/download.svg?style=flat)](https://bintray.com/taylorzhang/maven/single-click/)
+[![Maven Central](https://img.shields.io/maven-central/v/cc.taylorzhang/single-click.svg?style=flat)](https://search.maven.org/artifact/cc.taylorzhang/single-click)
 [![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14)
 [![License](https://img.shields.io/badge/License-Apache--2.0-brightgreen.svg?style=flat)](LICENSE)
 
 ## Download
 
 ```groovy
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     implementation 'cc.taylorzhang:single-click:1.0.0'
 }
