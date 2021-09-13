@@ -24,14 +24,28 @@ dependencies {
 
 ### View
 
+kotlin:
+
 ```kotlin
-mBinding.btn1.onSingleClick {
+btn1.onSingleClick {
     // 处理单次点击
 }
 
-mBinding.btn2.onSingleClick(interval = 2000, isShareSingleClick = false) {
+btn2.onSingleClick(interval = 2000, isShareSingleClick = false) {
     // 处理单次点击
 }
+```
+
+java:
+
+```java
+SingleClickUtil.onSingleClick(btn1, v -> {
+    // 处理单次点击
+});
+
+SingleClickUtil.onSingleClick(btn2, 2000, false, v -> {
+    // 处理单次点击
+});
 ```
 
 ### 数据绑定
@@ -48,9 +62,9 @@ mBinding.btn2.onSingleClick(interval = 2000, isShareSingleClick = false) {
     app:singleClickInterval="@{2000}" />
 ```
 
-代码:
+kotlin:
 
-```
+```kotlin
 class YourViewModel : ViewModel() {
 
     fun handleClick() {
@@ -59,12 +73,25 @@ class YourViewModel : ViewModel() {
 }
 ```
 
+java:
+
+```java
+public class YourViewModel extends ViewModel {
+
+    public void handleClick() {
+        // 处理单次点击
+    }
+}
+```
+
 ### 富文本
 
+kotlin:
+
 ```kotlin
-mBinding.tvText.movementMethod = LinkMovementMethod.getInstance()
-mBinding.tvText.highlightColor = Color.TRANSPARENT
-mBinding.tvText.text = buildSpannedString {
+tvText.movementMethod = LinkMovementMethod.getInstance()
+tvText.highlightColor = Color.TRANSPARENT
+tvText.text = buildSpannedString {
     append("normalText")
     onSingleClick({
         // 处理单次点击
@@ -74,11 +101,32 @@ mBinding.tvText.text = buildSpannedString {
 }
 ```
 
+java:
+
+```java
+tvText.setMovementMethod(LinkMovementMethod.getInstance());
+tvText.setHighlightColor(Color.TRANSPARENT);
+SpannedString spannedString = SpannableStringBuilderKt.buildSpannedString(builder -> {
+    builder.append("normalText");
+    SingleClickUtil.onSingleClick(builder, v -> {
+        // 处理单次点击
+    }, builder1 -> {
+        SpannableStringBuilderKt.color(builder1, Color.GREEN, builder2 -> {
+            builder.append("clickText");
+            return null;
+        });
+        return null;
+    });
+    return null;
+});
+tvText.setText(spannedString);
+```
+
 ### RecyclerView
 
 适配器使用 [BaseRecyclerViewAdapterHelper](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)，如果你使用其他适配器代码也是类似的。
 
-Item 点击:
+Kotlin Item 点击:
 
 ```kotlin
 adapter.setOnItemClickListener { _, view, _ ->
@@ -88,7 +136,7 @@ adapter.setOnItemClickListener { _, view, _ ->
 }
 ```
 
-Item Child 点击:
+Kotlin Item Child 点击:
 
 ```kotlin
 adapter.addChildClickViewIds(R.id.btn1, R.id.btn2)
@@ -102,6 +150,30 @@ adapter.setOnItemChildClickListener { _, view, _ ->
         }
     }
 }
+```
+
+Java Item 点击:
+
+```java
+adapter.setOnItemClickListener((adapter1, view, position) -> {
+    SingleClickUtil.determineTriggerSingleClick(view, v -> {
+        // 处理普通点击
+    });
+});
+```
+
+Java Item Child 点击:
+
+```java
+adapter.setOnItemChildClickListener((adapter1, view, position) -> {
+    if (view.getId() == R.id.btn1) {
+        // handle normal click
+    } else if (view.getId() == R.id.btn2) {
+        SingleClickUtil.determineTriggerSingleClick(view, v -> {
+            // 处理单次点击
+        });
+    }
+});
 ```
 
 ## License

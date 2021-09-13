@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="cc.taylorzhang.singleclick.sample.MainViewModel" />
+            type="cc.taylorzhang.singleclick.sample.JavaSampleViewModel" />
 
     </data>
 
@@ -17,14 +17,6 @@
         android:layout_marginStart="@dimen/margin"
         android:layout_marginEnd="@dimen/margin"
         android:orientation="vertical">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/launch_java_sample"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin"
-            android:text="@string/btn_launch_java_sample"
-            android:textSize="@dimen/text_size" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn1"

@@ -15,12 +15,11 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers
-import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-
 
 /**
  * <pre>
@@ -63,13 +62,13 @@ class ClickableSpanSingleClickTest {
         Espresso.onView(ViewMatchers.withSubstring("text1")).perform(clickClickableSpan("text1"))
         Espresso.onView(ViewMatchers.withSubstring("text1")).perform(clickClickableSpan("text1"))
         Espresso.onView(ViewMatchers.withSubstring("text1")).perform(clickClickableSpan("text1"))
-        Assert.assertEquals(1, text1SingleClickedCount)
+        assertEquals(1, text1SingleClickedCount)
 
         Thread.sleep(interval.toLong())
         Espresso.onView(ViewMatchers.withSubstring("text1")).perform(clickClickableSpan("text1"))
         Espresso.onView(ViewMatchers.withSubstring("text1")).perform(clickClickableSpan("text1"))
         Espresso.onView(ViewMatchers.withSubstring("text1")).perform(clickClickableSpan("text1"))
-        Assert.assertEquals(2, text1SingleClickedCount)
+        assertEquals(2, text1SingleClickedCount)
     }
 
     @Test
@@ -99,14 +98,14 @@ class ClickableSpanSingleClickTest {
 
         Espresso.onView(ViewMatchers.withSubstring("text1")).perform(clickClickableSpan("text1"))
         Espresso.onView(ViewMatchers.withSubstring("text2")).perform(clickClickableSpan("text2"))
-        Assert.assertEquals(1, text1SingleClickedCount)
-        Assert.assertEquals(0, text2SingleClickedCount)
+        assertEquals(1, text1SingleClickedCount)
+        assertEquals(0, text2SingleClickedCount)
 
         Thread.sleep(interval.toLong())
         Espresso.onView(ViewMatchers.withSubstring("text2")).perform(clickClickableSpan("text2"))
         Espresso.onView(ViewMatchers.withSubstring("text1")).perform(clickClickableSpan("text1"))
-        Assert.assertEquals(1, text1SingleClickedCount)
-        Assert.assertEquals(1, text2SingleClickedCount)
+        assertEquals(1, text1SingleClickedCount)
+        assertEquals(1, text2SingleClickedCount)
     }
 
     @Test
@@ -129,8 +128,8 @@ class ClickableSpanSingleClickTest {
 
         Espresso.onView(ViewMatchers.withSubstring("text1")).perform(clickClickableSpan("text1"))
         Espresso.onView(ViewMatchers.withSubstring("text2")).perform(clickClickableSpan("text2"))
-        Assert.assertEquals(1, text1SingleClickedCount)
-        Assert.assertEquals(1, text2SingleClickedCount)
+        assertEquals(1, text1SingleClickedCount)
+        assertEquals(1, text2SingleClickedCount)
     }
 
     @Test
@@ -160,8 +159,8 @@ class ClickableSpanSingleClickTest {
 
         Espresso.onView(ViewMatchers.withSubstring("text1")).perform(clickClickableSpan("text1"))
         Espresso.onView(ViewMatchers.withSubstring("text2")).perform(clickClickableSpan("text2"))
-        Assert.assertEquals(1, text1SingleClickedCount)
-        Assert.assertEquals(1, text2SingleClickedCount)
+        assertEquals(1, text1SingleClickedCount)
+        assertEquals(1, text2SingleClickedCount)
     }
 
     private fun clickClickableSpan(textToClick: CharSequence): ViewAction {

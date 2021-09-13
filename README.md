@@ -24,14 +24,28 @@ dependencies {
 
 ### View
 
+kotlin:
+
 ```kotlin
-mBinding.btn1.onSingleClick {
+btn1.onSingleClick {
     // handle single click
 }
 
-mBinding.btn2.onSingleClick(interval = 2000, isShareSingleClick = false) {
+btn2.onSingleClick(interval = 2000, isShareSingleClick = false) {
     // handle single click
 }
+```
+
+java:
+
+```java
+SingleClickUtil.onSingleClick(btn1, v -> {
+    // handle single click
+});
+
+SingleClickUtil.onSingleClick(btn2, 2000, false, v -> {
+    // handle single click
+});
 ```
 
 ### DataBinding
@@ -59,12 +73,25 @@ class YourViewModel : ViewModel() {
 }
 ```
 
+java:
+
+```java
+public class YourViewModel extends ViewModel {
+
+    public void handleClick() {
+        // handle single click
+    }
+}
+```
+
 ### Rich Text
 
+kotlin:
+
 ```kotlin
-mBinding.tvText.movementMethod = LinkMovementMethod.getInstance()
-mBinding.tvText.highlightColor = Color.TRANSPARENT
-mBinding.tvText.text = buildSpannedString {
+tvText.movementMethod = LinkMovementMethod.getInstance()
+tvText.highlightColor = Color.TRANSPARENT
+tvText.text = buildSpannedString {
     append("normalText")
     onSingleClick({
         // handle single click
@@ -74,11 +101,32 @@ mBinding.tvText.text = buildSpannedString {
 }
 ```
 
+java:
+
+```java
+tvText.setMovementMethod(LinkMovementMethod.getInstance());
+tvText.setHighlightColor(Color.TRANSPARENT);
+SpannedString spannedString = SpannableStringBuilderKt.buildSpannedString(builder -> {
+    builder.append("normalText");
+    SingleClickUtil.onSingleClick(builder, v -> {
+        // handle single click
+    }, builder1 -> {
+        SpannableStringBuilderKt.color(builder1, Color.GREEN, builder2 -> {
+            builder.append("clickText");
+            return null;
+        });
+        return null;
+    });
+    return null;
+});
+tvText.setText(spannedString);
+```
+
 ### RecyclerView
 
 Adapter use [BaseRecyclerViewAdapterHelper](https://github.com/CymChad/BaseRecyclerViewAdapterHelper), the code is similar if you use other adapters.
 
-Item Click:
+Kotlin Item Click:
 
 ```kotlin
 adapter.setOnItemClickListener { _, view, _ ->
@@ -88,7 +136,7 @@ adapter.setOnItemClickListener { _, view, _ ->
 }
 ```
 
-Item Child Click:
+Kotlin Item Child Click:
 
 ```kotlin
 adapter.addChildClickViewIds(R.id.btn1, R.id.btn2)
@@ -102,6 +150,30 @@ adapter.setOnItemChildClickListener { _, view, _ ->
         }
     }
 }
+```
+
+Java Item Click:
+
+```java
+adapter.setOnItemClickListener((adapter1, view, position) -> {
+    SingleClickUtil.determineTriggerSingleClick(view, v -> {
+        // handle single click
+    });
+});
+```
+
+Java Item Child Click:
+
+```java
+adapter.setOnItemChildClickListener((adapter1, view, position) -> {
+    if (view.getId() == R.id.btn1) {
+        // handle normal click
+    } else if (view.getId() == R.id.btn2) {
+        SingleClickUtil.determineTriggerSingleClick(view, v -> {
+            // handle single click
+        });
+    }
+});
 ```
 
 ## License

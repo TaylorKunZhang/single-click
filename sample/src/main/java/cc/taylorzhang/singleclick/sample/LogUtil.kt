@@ -14,6 +14,7 @@ object LogUtil {
 
     private var mLogFlag = false
 
+    @JvmStatic
     fun i(any: Any) {
         if (mLogFlag) {
             Log.i(". SingleClick", any.toString())

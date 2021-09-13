@@ -1,5 +1,6 @@
 package cc.taylorzhang.singleclick.sample
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
@@ -43,6 +44,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initButton() {
+        mBinding.launchJavaSample.onSingleClick {
+            startActivity(Intent(this, JavaSampleActivity::class.java))
+        }
+
         mBinding.btn1.onSingleClick {
             LogUtil.i("btn1 clicked")
         }
