@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'cc.taylorzhang:single-click:1.0.0'
+    implementation 'cc.taylorzhang:single-click:1.1.0'
 }
 ```
 
